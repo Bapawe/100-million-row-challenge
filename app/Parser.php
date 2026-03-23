@@ -22,7 +22,10 @@ final class Parser
             }
         }
 
-        array_walk($result, fn(&$dates) => ksort($dates));
+        foreach ($result as &$dates) {
+            ksort($dates);
+        }
+        unset($dates);
 
         file_put_contents($outputPath, json_encode($result, JSON_PRETTY_PRINT));
     }
